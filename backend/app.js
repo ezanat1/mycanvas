@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -8,11 +9,13 @@ const fileUploads = require("./api/routes/fileUploadRoutes");
 const cors = require("cors");
 const passport = require("passport");
 const mongoose = require("mongoose");
-
-const config = require("./config/main").mongoURI;
+const router = require("express").Router();
+const { mongo } = require("mongoose");
+const Grid = require("gridfs-stream");
+const config = require("./config/main").db;
+// const controller = require("./controller");
 var multer = require("multer");
 var GridFsStorage = require("multer-gridfs-storage");
-var Grid = require("gridfs-stream");
 const options = {
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
@@ -24,28 +27,7 @@ const options = {
   socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
   family: 4 // Use IPv4, skip trying IPv6
 };
-module.export = mongoose
-  .connect(config, options)
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
-  .catch(err => {
-    console.log(err);
-    console.log("MongoDB Not Connected");
-  });
-
-// const MongoClient = require("mongodb").MongoClient;
-
-// // replace the uri string with your connection string.
-// const uri = config;
-// MongoClient.connect(uri, options, function(err, client) {
-//   if (err) {
-//     console.log("Error occurred while connecting to MongoDB Atlas...\n", err);
-//   }
-//   console.log("Mongodb atlas Connected...");
-//   // perform actions on the collection object
-//   client.close();
-// });
+mongoose.connect(config, options);
 
 app.use(passport.initialize());
 require("./api/passports")(passport);
@@ -57,8 +39,8 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "client/build")));
 
-/** Seting up server to accept cross-origin browser requests */
 app.use(function(req, res, next) {
   //allow cross origin requests
   res.setHeader(
@@ -73,18 +55,12 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   next();
 });
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
+
 //
 //Middleware for User routes
 app.use("/users", userRoutes);
 //Middleware for Course routes
 app.use("/course", courseRoutes);
-app.use("/uploads", fileUploads);
-//Middleware for Course routes
-
-// app.route("/course").get(courseRoutes.getCourse);
-// app.route("/addCourse").post(courseRoutes.addCourse);
+// app.use("/api", fileUploads);
 
 module.exports = app;

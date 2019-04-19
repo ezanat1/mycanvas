@@ -15,6 +15,7 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "gravatar": "^1.8.0",
     "gridfs-stream": "^1.1.1",
