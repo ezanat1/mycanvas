@@ -1,52 +1,53 @@
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/authentication';
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authentication";
 
 class Navbar extends Component {
   onLogout(e) {
     e.preventDefault();
     this.props.logoutUser(this.props.history);
-}
+  }
 
   render() {
-    const {isAuthenticated, user} = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
     return (
       <ul
         style={navBarStyle}
         id="sidenav-1"
         className="sidenav sidenav-fixed slide-out"
       >
-        <li>
-          <h1 className="center-align" style={{ fontSize: "30px" }}>
+        <Link to="/homepage">
+          <li
+            className="center-align avatar"
+            style={{ color: "gold", fontSize: "30px" }}
+          >
             SJSU
-          </h1>
-        </li>
+          </li>
+        </Link>
+
         <li>
           <Link to="/profile">
             <i style={linkStyle} className="material-icons ">
               person
             </i>
-            
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/courseHome">
             <i style={linkStyle} className="material-icons">
               book
             </i>
  
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/searchcourse">
-          
             <i style={linkStyle} className="material-icons">
               search
             </i>
-            
           </Link>
         </li>
         <li>
@@ -93,10 +94,13 @@ const smalStyle = {
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth
-})
+});
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(withRouter(Navbar));

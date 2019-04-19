@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import Navbar from "./Navbar"
-import CourseNavbar from "./Navbar"
+import Navbar from "./Navbar";
+import CourseNavbar from "./Navbar";
 import jwt_decode from "jwt-decode";
 const initialState = {
   recipient: "",
-  message: "",
- 
+  message: ""
 };
 class Message extends Component {
   constructor() {
@@ -25,9 +24,7 @@ class Message extends Component {
     e.preventDefault();
     const msg = {
       recipient: this.state.recipient,
-      message: this.state.message,
-     
-
+      message: this.state.message
     };
     // addCourse(course).then(res => {
     //   if (res) {
@@ -39,7 +36,7 @@ class Message extends Component {
   render() {
     return (
       <div className="container">
-      <CourseNavbar />
+        <CourseNavbar />
         <div className="valign-wrapper row">
           <div className="col card hoverable s12">
             <form noValidate onSubmit={this.onSubmit}>
@@ -57,8 +54,8 @@ class Message extends Component {
                     />
                   </div>
                   <div className="input-field col s12">
-                  <label for="textarea1">Message</label>
-                  <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Message</label>
+                    <textarea id="textarea1" class="materialize-textarea" />
                   </div>
                 </div>
                 <div className="card-action right-align">

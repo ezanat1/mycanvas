@@ -37,8 +37,6 @@ class CourseNavbar extends Component {
             </i>
           </Link>
         </li>
-        
-       
       </ul>
     );
   }

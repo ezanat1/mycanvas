@@ -1,5 +1,5 @@
 import { UPDATE_USER } from "../actions/types";
-import checkEmpty from '../validation/checkEmpty';
+import checkEmpty from "../validation/checkEmpty";
 const initialState = {};
 export default function(state = initialState, action) {
   switch (action.type) {

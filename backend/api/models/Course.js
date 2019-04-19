@@ -10,6 +10,6 @@ const courseSchema = mongoose.Schema({
   courseRoom: { type: String, required: true },
   waitListCap: { type: Number, required: true },
   courseTeam: { type: String },
-  taughtBy:{ type: String }
+  taughtBy: { type: String, required: true }
 });
 module.exports = mongoose.model("Course", courseSchema);

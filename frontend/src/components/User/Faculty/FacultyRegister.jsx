@@ -12,7 +12,7 @@ class Register extends Component {
       last_name: "",
       email: "",
       password: "",
-      errors:{}
+      errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -35,10 +35,10 @@ class Register extends Component {
     // if(nextProps.auth.isAuthenticated) {
     //     this.props.history.push('/facultyDashboard')
     // }
-    if(nextProps.errors) {
-        this.setState({
-            errors: nextProps.errors
-        });
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
     }
   }
   componentDidMount() {
@@ -66,7 +66,16 @@ class Register extends Component {
                       value={this.state.firstName}
                       onChange={this.onChange}
                     />
-                     {errors.first_name && (<span style={{ color: "red" }} className="helper-text" data-error="wrong" data-success="right">{errors.first_name}</span>)}
+                    {errors.first_name && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                        data-success="right"
+                      >
+                        {errors.first_name}
+                      </span>
+                    )}
                   </div>
                   <div className="input-field col s12">
                     <label htmlFor="lastName">Last Name</label>
@@ -77,7 +86,16 @@ class Register extends Component {
                       value={this.state.lastName}
                       onChange={this.onChange}
                     />
-                     {errors.last_name && (<span style={{ color: "red" }}  className="helper-text" data-error="wrong" data-success="right">{errors.last_name}</span>)}
+                    {errors.last_name && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                        data-success="right"
+                      >
+                        {errors.last_name}
+                      </span>
+                    )}
                   </div>
                   <div className="input-field col s12">
                     <label htmlFor="email">Email</label>
@@ -88,7 +106,16 @@ class Register extends Component {
                       value={this.state.email}
                       onChange={this.onChange}
                     />
-                    {errors.email && (<span style={{ color: "red" }}  className="helper-text" data-error="wrong" data-success="right">{errors.email}</span>)}
+                    {errors.email && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                        data-success="right"
+                      >
+                        {errors.email}
+                      </span>
+                    )}
                   </div>
                   <div className="input-field col s12">
                     <label htmlFor="password"> Password </label>
@@ -99,7 +126,16 @@ class Register extends Component {
                       value={this.state.passsword}
                       onChange={this.onChange}
                     />
-                     {errors.password && (<span style={{ color: "red" }} className="helper-text" data-error="wrong" data-success="right">{errors.password}</span>)}
+                    {errors.password && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                        data-success="right"
+                      >
+                        {errors.password}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <small>Already have an Account </small>
@@ -133,4 +169,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps,{ registerFaculty })(withRouter(Register))
+export default connect(
+  mapStateToProps,
+  { registerFaculty }
+)(withRouter(Register));

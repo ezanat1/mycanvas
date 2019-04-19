@@ -249,8 +249,7 @@ class AddCourse extends Component {
   }
 }
 AddCourse.propTypes = {
-  auth: PropTypes.func.isRequired,
-  course: PropTypes.func.isRequired
+  addCourse: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

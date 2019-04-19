@@ -9,8 +9,6 @@ function handleTopicRequest(topic_name, function_name) {
 
     console.log('server is running');
     consumer.on('message', function (message) {
-        console.log('message recieved for ' + topic_name + " " + function_name);
-        console.log(JSON.stringify(message.value));
         var data = JSON.parse(message.value);
 
         function_name.handle_request(data.data, function (err, res) {

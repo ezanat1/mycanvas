@@ -59,7 +59,7 @@ export const addCourse = course => {
       courseDescription: course.courseDescription,
       courseRoom: course.courseRoom,
       waitListCap: course.waitListCap,
-      courseTeam: course.courseTeam,
+      courseTeam: course.courseTeam
     })
     .then(res => {
       console.log("Course Added Succesfully");

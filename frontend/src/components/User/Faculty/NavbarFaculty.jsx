@@ -17,11 +17,14 @@ class NavbarFaculty extends Component {
         id="sidenav-1"
         className="sidenav sidenav-fixed slide-out"
       >
-        <li>
-          <h1 className="center-align" style={{ fontSize: "30px" }}>
+        <Link to="/facultydashboard">
+          <li
+            className="center-align avatar"
+            style={{ color: "gold", fontSize: "30px" }}
+          >
             SJSU
-          </h1>
-        </li>
+          </li>
+        </Link>
         <li>
           <Link to="/facultyProfile">
             <i style={linkStyle} className="material-icons ">

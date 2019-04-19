@@ -6,5 +6,5 @@ import courseReducer from "../reducers/courseReducer";
 export default combineReducers({
   errors: errorReducer,
   auth: authReducer,
-  course:courseReducer
+  course: courseReducer
 });

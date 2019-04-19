@@ -24,26 +24,25 @@ export default class SearchCourse extends Component {
   //       this.setState({
   //         class: res.data
   //       });
-    
+
   //   });
   // };
   render() {
     return (
       <div>
         <Navbar />
-          <form onSubmit={this.props.searchClass}>
-                  <input
-                    type="text"
-                    // value={this.props.searchInput}
-                    name="classSearch"
-                    placeholder="Search by Course ID,Course Number"
-                  />
-                  <button type="submit" style={btnColor} className="btn-large">
-                    Search
-                  </button>
-          </form>
-        </div>
-      
+        <form onSubmit={this.props.searchClass}>
+          <input
+            type="text"
+            // value={this.props.searchInput}
+            name="classSearch"
+            placeholder="Search by Course ID,Course Number"
+          />
+          <button type="submit" style={btnColor} className="btn-large">
+            Search
+          </button>
+        </form>
+      </div>
     );
   }
 }

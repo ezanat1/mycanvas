@@ -9,16 +9,23 @@ const cors = require("cors");
 const passport = require("passport");
 const mongoose = require("mongoose");
 
-const MongoClient = require("mongodb").MongoClient;
 const config = require("./config/main").mongoURI;
 var multer = require("multer");
 var GridFsStorage = require("multer-gridfs-storage");
 var Grid = require("gridfs-stream");
-
-mongoose
-  .connect(config, {
-    useNewUrlParser: true
-  })
+const options = {
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0,
+  connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  family: 4 // Use IPv4, skip trying IPv6
+};
+module.export = mongoose
+  .connect(config, options)
   .then(() => {
     console.log("MongoDB Connected");
   })
@@ -26,6 +33,19 @@ mongoose
     console.log(err);
     console.log("MongoDB Not Connected");
   });
+
+// const MongoClient = require("mongodb").MongoClient;
+
+// // replace the uri string with your connection string.
+// const uri = config;
+// MongoClient.connect(uri, options, function(err, client) {
+//   if (err) {
+//     console.log("Error occurred while connecting to MongoDB Atlas...\n", err);
+//   }
+//   console.log("Mongodb atlas Connected...");
+//   // perform actions on the collection object
+//   client.close();
+// });
 
 app.use(passport.initialize());
 require("./api/passports")(passport);
@@ -39,7 +59,7 @@ app.use(
 app.use(bodyParser.json());
 
 /** Seting up server to accept cross-origin browser requests */
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   //allow cross origin requests
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -53,14 +73,17 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   next();
 });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 //
 //Middleware for User routes
 app.use("/users", userRoutes);
 //Middleware for Course routes
 app.use("/course", courseRoutes);
-
+app.use("/uploads", fileUploads);
 //Middleware for Course routes
-// app.use("/uploads", fileUploads);
+
 // app.route("/course").get(courseRoutes.getCourse);
 // app.route("/addCourse").post(courseRoutes.addCourse);
 

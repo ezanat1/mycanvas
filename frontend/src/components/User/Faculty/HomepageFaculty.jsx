@@ -3,8 +3,7 @@ import { Link, withRouter, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 // import Profile from "./Profile";
 import NavbarFaculty from "./NavbarFaculty";
-import CourseItem from "../../Search/CourseItem";
-import SearchCourse from "../../Search/SearchCourse";
+import FacultyEachCourse from "../Faculty/FacultyEachCourse";
 
 class FacultyHomepage extends Component {
   componentDidMount() {
@@ -19,7 +18,9 @@ class FacultyHomepage extends Component {
             <h3>Dashboard</h3>
             <hr />
           </div>
-          <div className="col" />
+          <div className="row">
+            <FacultyEachCourse />
+          </div>
         </div>
       </div>
     );

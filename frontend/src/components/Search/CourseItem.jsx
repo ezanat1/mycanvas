@@ -9,10 +9,11 @@ class CourseItem extends Component {
     super(props);
     this.state = {
       studentID: "",
-      courseID: ""
+      courseID: "",
+      errors: ""
     };
     this.registerClass = this.registerClass.bind(this);
-    this.handleCourse = this.handleCourse.bind(this);
+    // this.handleCourse = this.handleCourse.bind(this);
   }
 
   componentDidMount() {
@@ -20,12 +21,6 @@ class CourseItem extends Component {
       studentID: this.props.auth.user.id
     });
   }
-  handleCourse = e => {
-    e.preventDefault();
-    this.setState({
-      courseID: e.target.value
-    });
-  };
   registerClass = e => {
     this.setState({
       courseID: e.target.value
@@ -35,22 +30,28 @@ class CourseItem extends Component {
       studentID: this.state.studentID,
       courseID: this.state.courseID
     };
-    console.log("from register function", data);
-
-    // axios.post("course/registerclass", data).then(res => {
-    //   if (res.status === 200) {
-    //     console.log(res.data);
-    //   }
-    // });
+    axios
+      .post("users/registerClass", data)
+      .then(res => {
+        if (res.status === 201) {
+          console.log("its 201");
+        }
+        if (res.status === 400) {
+          console.log("400 request");
+        }
+      })
+      .catch(err => {
+        console.log("from catch", err.res);
+      });
   };
 
   render() {
-    console.log("from render", this.state.courseID);
     let classesResult = null;
     if (this.props.class != null) {
       classesResult = this.props.class.map(singleClass => {
         return (
           <ul className="collection with-header" key={singleClass.id}>
+            <div className="result">{this.state.errors}</div>
             <li className="collection-item">
               <div>
                 <p>{singleClass.courseID}</p>
@@ -58,7 +59,7 @@ class CourseItem extends Component {
                 <div className="secondary-content">
                   <button
                     style={btnColor}
-                    value={this.state.courseID}
+                    value={singleClass.id}
                     onClick={this.registerClass}
                     className="btn btn-flat"
                     type="button"

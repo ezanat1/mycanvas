@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const initialState = {
   email: "",
   password: "",
-  errors:{}
+  errors: {}
 };
 class Login extends Component {
   constructor() {
@@ -18,34 +18,34 @@ class Login extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
- onSubmit(e){
-  e.preventDefault();
-  const user = {
+  onSubmit(e) {
+    e.preventDefault();
+    const user = {
       email: this.state.email,
-      password: this.state.password,
+      password: this.state.password
+    };
+    this.props.loginFaculty(user);
+    console.log(user);
   }
-  this.props.loginFaculty(user);
-  console.log(user);
- }
 
- componentDidMount() {
-  if(this.props.auth.isAuthenticated) {
-      this.props.history.push('/');
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
   }
-}
- componentWillReceiveProps(nextProps) {
-  if(nextProps.auth.isAuthenticated) {
-      this.props.history.push('/facultyDashboard')
-  }
-  if(nextProps.errors) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/facultyDashboard");
+    }
+    if (nextProps.errors) {
       this.setState({
-          errors: nextProps.errors
+        errors: nextProps.errors
       });
+    }
   }
-}
 
   render() {
-    const {errors} = this.state;
+    const { errors } = this.state;
     return (
       <div className="container">
         <div className="valign-wrapper row login-box">
@@ -64,7 +64,15 @@ class Login extends Component {
                       onChange={this.onChange}
                     />
 
-                  {errors.email && (<span style={{ color: "red" }} className="helper-text" data-error="wrong">{errors.email}</span>)} 
+                    {errors.email && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                      >
+                        {errors.email}
+                      </span>
+                    )}
                   </div>
                   <div className="input-field col s12">
                     <label htmlFor="password"> Password </label>
@@ -75,7 +83,15 @@ class Login extends Component {
                       value={this.state.passsword}
                       onChange={this.onChange}
                     />
-                   {errors.password && (<span style={{ color: "red" }} className="helper-text" data-error="wrong">{errors.password}</span>)} 
+                    {errors.password && (
+                      <span
+                        style={{ color: "red" }}
+                        className="helper-text"
+                        data-error="wrong"
+                      >
+                        {errors.password}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -96,7 +112,7 @@ class Login extends Component {
                   style={{ backgroundColor: "#1e5abc", color: "white" }}
                   type="submit"
                   className="btn"
-                  value='Login'
+                  value="Login"
                 />
               </div>
             </form>
