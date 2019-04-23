@@ -31,17 +31,33 @@ export default class SearchCourse extends Component {
     return (
       <div>
         <Navbar />
-        <form onSubmit={this.props.searchClass}>
-          <input
-            type="text"
-            // value={this.props.searchInput}
-            name="classSearch"
-            placeholder="Search by Course ID,Course Number"
-          />
-          <button type="submit" style={btnColor} className="btn-large">
-            Search
-          </button>
-        </form>
+        <div className="col s12 ">
+          <div className="card">
+            <div className="card-content black-text center">
+              <h3 className="align-center">Search Class</h3>
+              <form onSubmit={this.props.searchClass}>
+                <div className="row">
+                  <div className="input-field col s8">
+                    <input
+                      type="text"
+                      name="classSearch"
+                      placeholder="Search by Course ID,Course Number"
+                    />
+                  </div>
+                  <div className="input-field col">
+                    <button
+                      type="submit"
+                      style={btnColor}
+                      className="btn-large"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -13,7 +13,6 @@ class CourseItem extends Component {
       errors: ""
     };
     this.registerClass = this.registerClass.bind(this);
-    // this.handleCourse = this.handleCourse.bind(this);
   }
 
   componentDidMount() {
@@ -50,32 +49,59 @@ class CourseItem extends Component {
     if (this.props.class != null) {
       classesResult = this.props.class.map(singleClass => {
         return (
-          <ul className="collection with-header" key={singleClass.id}>
-            <div className="result">{this.state.errors}</div>
-            <li className="collection-item">
-              <div>
-                <p>{singleClass.courseID}</p>
-                <span>{singleClass.courseName}</span>
-                <div className="secondary-content">
-                  <button
-                    style={btnColor}
-                    value={singleClass.id}
-                    onClick={this.registerClass}
-                    className="btn btn-flat"
-                    type="button"
-                  >
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </li>
-          </ul>
+          // <ul className="collection with-header" key={singleClass.id}>
+          //   <div className="result">{this.state.errors}</div>
+          //   <li className="collection-item">
+          //     <div>
+          //       <p>{singleClass.courseID}</p>
+          //       <span>{singleClass.courseName}</span>
+          //       <div className="secondary-content">
+          //         <button
+          //           style={btnColor}
+          //           value={singleClass.id}
+          //           onClick={this.registerClass}
+          //           className="btn btn-flat"
+          //           type="button"
+          //         >
+          //           Enroll
+          //         </button>
+          //       </div>
+          //     </div>
+          //   </li>
+          // </ul>
+          <tr key={singleClass.id}>
+            <td>{singleClass.courseID}</td>
+            <td>{singleClass.courseName}</td>
+            <td>{singleClass.courseDescription}</td>
+            <td>
+              {" "}
+              <button
+                style={btnColor}
+                value={singleClass.id}
+                onClick={this.registerClass}
+                className="btn btn-flat"
+                type="button"
+              >
+                Enroll
+              </button>
+            </td>
+          </tr>
         );
       });
 
       return (
         <div className="contianer">
-          <div>{classesResult}</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Course Id</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th>Register </th>
+              </tr>
+            </thead>
+            <tbody>{classesResult}</tbody>
+          </table>
         </div>
       );
     }

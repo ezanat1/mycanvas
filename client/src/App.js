@@ -17,13 +17,14 @@ import CourseHome from "./components/CourseHome";
 import SingleCourseItem from "./components/User/SingleCourseItem";
 import EachCourseView from "./components/User/Faculty/EachCourseView";
 import People from "./components/EachCourseItems/People";
+import UploadFiles from "./components/User/UserHelpers/Upload";
 import Error from "./components/Error";
 import { Provider } from "react-redux";
 import setAuthToken from "./setAuthToken";
 import store from "./store/store";
+
 import { setCurrentUser, logoutUser } from "./actions/authentication";
 import jwt_decode from "jwt-decode";
-console.log("date", Date.now() / 1000);
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -43,7 +44,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/" component={Login} />{" "}
+            <Route exact path="/" component={UploadFiles} />{" "}
             <Route exact path="/login" component={Login} />{" "}
             <Route path="/register" component={Register} />{" "}
             <Route path="/homepage" component={Homepage} />{" "}

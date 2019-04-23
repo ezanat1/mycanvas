@@ -1,30 +1,30 @@
-const kafka = require('kafka-node');
+// const kafka = require('kafka-node');
 
-function ConnectionProvider() {
-    this.getConsumer = function (topic_name) {
+// function ConnectionProvider() {
+//     this.getConsumer = function (topic_name) {
 
-        this.client = new kafka.Client("localhost:2181");
-        this.kafkaConsumerConnection = new kafka.Consumer(this.client, [{
-            topic: topic_name,
-            partition: 0
-        }]);
-        this.client.on('ready', function () {
-            console.log('client ready!')
-        })
+//         this.client = new kafka.Client("localhost:2181");
+//         this.kafkaConsumerConnection = new kafka.Consumer(this.client, [{
+//             topic: topic_name,
+//             partition: 0
+//         }]);
+//         this.client.on('ready', function () {
+//             console.log('client ready!')
+//         })
 
-        return this.kafkaConsumerConnection;
-    };
+//         return this.kafkaConsumerConnection;
+//     };
 
-    this.getProducer = function () {
+//     this.getProducer = function () {
 
-        if (!this.kafkaProducerConnection) {
-            this.client = new kafka.Client("localhost:2181");
-            var HighLevelProducer = kafka.HighLevelProducer;
-            this.kafkaProducerConnection = new HighLevelProducer(this.client);
-            //this.kafkaConnection = new kafka.Producer(this.client);
-            console.log('producer ready');
-        }
-        return this.kafkaProducerConnection;
-    };
-}
-exports = module.exports = new ConnectionProvider;
+//         if (!this.kafkaProducerConnection) {
+//             this.client = new kafka.Client("localhost:2181");
+//             var HighLevelProducer = kafka.HighLevelProducer;
+//             this.kafkaProducerConnection = new HighLevelProducer(this.client);
+//             //this.kafkaConnection = new kafka.Producer(this.client);
+//             console.log('producer ready');
+//         }
+//         return this.kafkaProducerConnection;
+//     };
+// }
+// exports = module.exports = new ConnectionProvider;

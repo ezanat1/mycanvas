@@ -7,6 +7,7 @@ import Files from "../Faculty/CourseViews/Files";
 import Home from "../Faculty/CourseViews/Home";
 import Annoucements from "../Faculty/CourseViews/Annoucements";
 import axios from "axios";
+import Submissions from "./CourseViews/Submission";
 class EachCourseView extends Component {
   constructor() {
     super();
@@ -40,9 +41,11 @@ class EachCourseView extends Component {
       case "Home":
         return <Home class={this.state.class} />;
       case "Files":
-        return <Files />;
+        return <Files class={this.state.class} />;
       case "People":
-        return <Students />;
+        return <Students class={this.state.class} />;
+      case "Submissions":
+        return <Submissions class={this.state.class} />;
       case "Annoucements":
         return <Annoucements />;
     }
@@ -68,14 +71,17 @@ class EachCourseView extends Component {
               </a>
               <div className="center">
                 <ul className="right">
-                  <li onClick={this.handleClick.bind(this, "Home")}>
+                  {/* <li onClick={this.handleClick.bind(this, "Home")}>
                     <a href="#">Home</a>
-                  </li>
+                  </li> */}
                   <li onClick={this.handleClick.bind(this, "Files")}>
-                    <a href="#">Files</a>
+                    <a href="#">Assignments</a>
                   </li>
                   <li onClick={this.handleClick.bind(this, "People")}>
                     <a href="#">Students</a>
+                  </li>
+                  <li onClick={this.handleClick.bind(this, "Submissions")}>
+                    <a href="#">Submissions</a>
                   </li>
                   <li onClick={this.handleClick.bind(this, "Annoucements")}>
                     <a href="#">Annoucments</a>

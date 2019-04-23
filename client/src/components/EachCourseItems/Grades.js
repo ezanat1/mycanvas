@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import CreateAssignment from "../Helpers/CreateAssigment";
 import axios from "axios";
 import { log } from "util";
-export default class Files extends Component {
+import Upload from "../User/UserHelpers/Upload";
+
+export default class Assignments extends Component {
   constructor(props) {
     super(props);
     this.state = {
       assignemnts: []
     };
-    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     axios
@@ -23,27 +23,15 @@ export default class Files extends Component {
         });
       });
   }
-  handleDelete(e) {
-    axios
-      .delete("/course/deleteAssignemnt", {
-        params: {
-          id: this.props.class.courseID
-        }
-      })
-      .then(res => {
-        console.log(res);
-      });
-  }
   render() {
+    console.log(this.props.class.courseID);
     const assignemnt = this.state.assignemnts.map(singleAssignemnt => {
       return (
-        <tr key={singleAssignemnt.id}>
+        <tr key={singleAssignemnt._id}>
           <td>{singleAssignemnt.name}</td>
           <td>{singleAssignemnt.description}</td>
           <td>
-            <button onClick={this.handleDelete} className="btn btn-small red">
-              Delete
-            </button>
+            <Upload />
           </td>
         </tr>
       );
@@ -53,17 +41,16 @@ export default class Files extends Component {
         <br />
 
         <div className="row">
-          <div className="col s12 ">
+          {/* <div className="col s12 ">
             <CreateAssignment id={this.props.class.courseID} />
-          </div>
+          </div> */}
           <div className="col s12">
-            <h3 className="center">My Assignemnts </h3>
+            <h3 className="center">My Grades </h3>
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Actions</th>
+                  <th>Assignment Name </th>
+                  <th>Grade Received</th>
                 </tr>
               </thead>
               <tbody>{assignemnt}</tbody>

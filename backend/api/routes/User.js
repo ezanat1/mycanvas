@@ -208,6 +208,7 @@ router.post("/loginFaculty", (req, res) => {
     });
   });
 });
+
 router.delete("/registration/:id", (req, res, next) => {
   const regiid = req.params.id;
   console.log(regiid);
@@ -283,64 +284,49 @@ router.post("/login", (req, res) => {
   });
 });
 
-// router.patch("/registerClass", (req, res) => {
-//   User.findOneAndDelete({
-//     registerdCourses: req.body.courseID
-//   })
-//     .exec()
-//     .then(reg => {
-//       if (reg) {
-//         console.log("already exists");
-//       } else {
-//         User.updateOne({
-//           registerdCourses: req.body.courseID
-//         });
-//       }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// });
-
 router.post("/registerClass", (req, res) => {
-  Registration.findOne({
-    $and: [
-      {
-        courseID: req.body.courseID
-      },
-      {
-        studentID: req.body.studentID
-      }
-    ]
-  })
-    .exec()
-    .then(reg => {
-      console.log("from then", reg);
-      if (reg) {
-        return res.status(400).json({
-          err: "Already Registered for this Class"
-        });
-      } else {
-        const registration = new Registration({
-          _id: new mongoose.Types.ObjectId(),
-          courseID: req.body.courseID,
+  if (req.body.courseID === "") {
+    return res.status(400);
+  } else if (req.body.studentID === "") {
+    return res.status(400);
+  } else {
+    Registration.findOne({
+      $and: [
+        {
+          courseID: req.body.courseID
+        },
+        {
           studentID: req.body.studentID
-        });
-        registration.save().then(result => {
-          res.status(201).json({
-            Msg: "Succesfully Register"
-          });
-        });
-      }
+        }
+      ]
     })
-    .catch(err => {
-      res.status(500).json({
-        err: err
+      .exec()
+      .then(reg => {
+        console.log(typeof reg);
+        if (!reg === null) {
+          return res.status(400).json({
+            err: "Already Registered for this Class"
+          });
+        } else if (reg === null) {
+          const registration = new Registration({
+            _id: new mongoose.Types.ObjectId(),
+            courseID: req.body.courseID,
+            studentID: req.body.studentID
+          });
+          registration.save().then(result => {
+            res.status(201).json({
+              Msg: "Succesfully Registered"
+            });
+          });
+        }
+      })
+
+      .catch(err => {
+        res.status(500).json({
+          err: err
+        });
       });
-    });
+  }
 });
 
 router.get("/classregistration", (req, res, next) => {

@@ -10,6 +10,7 @@ import Announcements from "../EachCourseItems/Annoucments";
 import Home from "../EachCourseItems/Home";
 import People from "../EachCourseItems/People";
 import Files from "../EachCourseItems/Files";
+import Grades from "../EachCourseItems/Grades";
 import axios from "axios";
 class CoursePage extends Component {
   constructor() {
@@ -44,9 +45,11 @@ class CoursePage extends Component {
       case "Home":
         return <Home class={this.state.class} />;
       case "Files":
-        return <Files />;
+        return <Files class={this.state.class} />;
       case "People":
-        return <People />;
+        return <People class={this.state.class} />;
+      case "Grades":
+        return <Grades class={this.state.class} />;
     }
   }
 
@@ -74,7 +77,10 @@ class CoursePage extends Component {
                     <a href="#">Home</a>
                   </li>
                   <li onClick={this.handleClick.bind(this, "Files")}>
-                    <a href="#">Files</a>
+                    <a href="#">Assignments</a>
+                  </li>
+                  <li onClick={this.handleClick.bind(this, "Grades")}>
+                    <a href="#">Grades</a>
                   </li>
                   <li onClick={this.handleClick.bind(this, "People")}>
                     <a href="#">People</a>

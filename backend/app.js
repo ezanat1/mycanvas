@@ -13,6 +13,7 @@ const router = require("express").Router();
 const { mongo } = require("mongoose");
 const Grid = require("gridfs-stream");
 const config = require("./config/main").db;
+
 // const controller = require("./controller");
 var multer = require("multer");
 var GridFsStorage = require("multer-gridfs-storage");
@@ -32,7 +33,7 @@ mongoose.connect(config, options);
 app.use(passport.initialize());
 require("./api/passports")(passport);
 app.use(morgan("dev"));
-
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -61,6 +62,6 @@ app.use(function(req, res, next) {
 app.use("/users", userRoutes);
 //Middleware for Course routes
 app.use("/course", courseRoutes);
-// app.use("/api", fileUploads);
+app.use("/api", fileUploads);
 
 module.exports = app;

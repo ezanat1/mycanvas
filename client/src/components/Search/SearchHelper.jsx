@@ -50,35 +50,19 @@ class SearchHelper extends Component {
 
   render() {
     return (
-      <div className="col s12">
-        <div className="card">
-          <div className="card-content black-text">
-            <h4 className="align-center">Search Class</h4>
-            <SearchCourse searchClass={this.searchClass} />
-          </div>
-          <div className="col s12">
-            <div className="card">
-              <div className="card-content">
-                <CourseItem class={this.state.class} />
-                <div style={ulColor}>
-                  <ul className="pagination">
-                    <li className="disabled">
-                      <a href="#!">
-                        <i className="material-icons">chevron_left</i>
-                      </a>
-                    </li>
-                    <li className="active">
-                      <a href="#!">1</a>
-                    </li>
-                    <li className="waves-effect">
-                      <a href="#!">2</a>
-                    </li>
-                    <li className="waves-effect">
-                      <a href="#!">3</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+      // <div className="col s12">
+      //   <div className="card">
+      //     <div className="card-content black-text">
+      //       <h4 className="align-center">Search Class</h4>
+      //       <SearchCourse searchClass={this.searchClass} />
+      //     </div>
+      // </div>
+      <div>
+        <SearchCourse searchClass={this.searchClass} />
+        <div className="col s12">
+          <div className="card">
+            <div className="card-content">
+              <CourseItem class={this.state.class} />
             </div>
           </div>
         </div>
@@ -87,7 +71,4 @@ class SearchHelper extends Component {
   }
 }
 
-const ulColor = {
-  color: "#1e5abc"
-};
 export default SearchHelper;

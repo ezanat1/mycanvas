@@ -1,60 +1,33 @@
-// const router = require("express").Router();
-// const multer = require("multer");
-// const { mongo, connection } = require("mongoose");
-// const config = require("../../config/main").db;
-// const Grid = require("gridfs-stream");
-// Grid.mongo = mongo;
-// var gfs = Grid(config);
+var express = require("express");
+var multer = require("multer");
+var cors = require("cors");
+const router = express.Router();
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public");
+  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
 
-// // set up connection to db for file storage
-// const storage = require("multer-gridfs-storage")({
-//   url: config,
-//   file: (req, file) => {
-//     return {
-//       filename: file.originalname
-//     };
-//   }
-// });
-// // sets file input to single file
-// const singleUpload = multer({ storage: storage }).single("file");
+var upload = multer({ storage: storage }).array("file");
 
-// router.get("/files/:filename", (req, res) => {
-//   gfs.find({ filename: req.params.filename }).toArray((err, files) => {
-//     if (!files || files.length === 0) {
-//       return res.status(404).json({
-//         message: "Could not find file"
-//       });
-//     }
-//     var readstream = gfs.createReadStream({
-//       filename: files[0].filename
-//     });
-//     res.set("Content-Type", files[0].contentType);
-//     return readstream.pipe(res);
-//   });
-// });
-// router.get("/files", (req, res) => {
-//   gfs.files.find().toArray((err, files) => {
-//     if (!files || files.length === 0) {
-//       return res.status(404).json({
-//         message: "Could not find files"
-//       });
-//     }
-//     return res.json(files);
-//   });
-//   router.post("/files", singleUpload, (req, res) => {
-//     if (req.file) {
-//       return res.json({
-//         success: true,
-//         file: req.file
-//       });
-//     }
-//     res.send({ success: false });
-//   });
-// });
-// router.delete("/files/:id", (req, res) => {
-//   gfs.remove({ _id: req.params.id }, err => {
-//     if (err) return res.status(500).json({ success: false });
-//     return res.json({ success: true });
-//   });
-// });
-// module.exports = router;
+router.get("/", function(req, res) {
+  return res.send("Hello Server");
+});
+router.post("/upload", function(req, res) {
+  upload(req, res, function(err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+      // A Multer error occurred when uploading.
+    } else if (err) {
+      return res.status(500).json(err);
+      // An unknown error occurred when uploading.
+    }
+
+    return res.status(200).send(req.file);
+    // Everything went fine.
+  });
+});
+module.exports = router;
